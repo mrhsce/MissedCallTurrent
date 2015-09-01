@@ -2,6 +2,7 @@ package mct.androtech.mrhsce.missedcallturrent;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.Button;
 
 
 public class MainActivity extends Activity {
+
+    private final Boolean LOCAL_SHOW_LOG = true;
 
     Button startButton;
     Caller caller;
@@ -20,13 +23,15 @@ public class MainActivity extends Activity {
         startButton = (Button)findViewById(R.id.start_button);
 
         caller = new Caller();
+
+        guiSetup();
     }
 
     private void guiSetup(){
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                caller.makeCall(MainActivity.this,GlobalVariables.farhadNum);
+                caller.makeCall(MainActivity.this,Commons.farhadNum);
             }
         });
     }
@@ -49,5 +54,10 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void log(String message){
+        if(Commons.SHOW_LOG && LOCAL_SHOW_LOG)
+            Log.d(this.getClass().getSimpleName(), message);
     }
 }
