@@ -1,0 +1,8 @@
+Bussiness model is in app purchase
+
+price: 599 t
+
+the following limitations exist untill the user buys the app:
+	- number of times process is repeated ---> 20 times
+	- number of contact that can be selected ---> 2 contacts
+	- ability for making missed call task
