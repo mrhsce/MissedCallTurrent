@@ -1,4 +1,4 @@
-package mct.androtech.mrhsce.missedcallturrent;
+package mct.androtech.mrhsce.mct;
 
 import android.content.Context;
 import android.content.Intent;

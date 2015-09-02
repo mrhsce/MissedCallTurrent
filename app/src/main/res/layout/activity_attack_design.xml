@@ -1,0 +1,131 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="mct.androtech.mrhsce.mct.AttackDesignActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/pickContactButton"
+            android:text="وارد کردن از مخاطبان"
+            android:textSize="10dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/phoneNumEditText"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            />
+        <ListView
+            android:id="@+id/phoneNumList"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"/>
+        <Button
+            android:id="@+id/manualInsertButton"
+            android:text="وارد کردن دستی"
+            android:textSize="10dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"/>
+
+        </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@drawable/border">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="دفعات تماس"
+                android:textSize="25dp"
+                android:layout_alignParentRight="true"
+                />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/repeatNumberPicker"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="زمان هر تماس"
+                android:textSize="25dp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/textView"
+                />
+
+            <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/holdNumberPicker"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/delayChkBox"/>
+            <TextView
+                android:id="@+id/delayTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/delayChkBox"
+                android:textSize="20dp"
+                android:text="وقفه بین تماسها"
+                android:enabled="false"/>
+
+            <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delayNumberPicker"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:hapticFeedbackEnabled="false"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/fireButton"
+        android:text="آتش"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
