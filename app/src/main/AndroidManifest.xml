@@ -58,7 +58,7 @@
             android:label="@string/title_activity_task_management" >
         </activity>
         <activity
-            android:name=".MCTask.AttackExecutionActivity"
+            android:name=".AttackExecutionActivity"
             android:label="@string/title_activity_attack_execution" >
         </activity>
     </application>

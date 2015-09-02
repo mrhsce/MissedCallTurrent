@@ -1,5 +1,6 @@
 package mct.androtech.mrhsce.mct;
 
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -21,6 +22,20 @@ public class MissedCallAttack {
         callHold = hold;
         callRepeat = repeat;
         interval = intrvl;
+    }
+
+    public MissedCallAttack(Intent intent){
+        phoneNumList = intent.getStringArrayListExtra("phoneNumList");
+        callHold = intent.getIntExtra("callHold",10);
+        callRepeat = intent.getIntExtra("callRepeat",5);
+        interval = intent.getIntExtra("interval",0);
+    }
+
+    public void loadIntent(Intent intent){
+        intent.putExtra("phoneNumList",phoneNumList);
+        intent.putExtra("callHold",callHold);
+        intent.putExtra("callRepeat",callRepeat);
+        intent.putExtra("interval",interval);
     }
 
     private void log(String message){

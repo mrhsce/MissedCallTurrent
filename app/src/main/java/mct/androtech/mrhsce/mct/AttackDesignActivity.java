@@ -1,6 +1,7 @@
 package mct.androtech.mrhsce.mct;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import mct.androtech.mrhsce.mct.R;
 
@@ -63,6 +66,7 @@ public class AttackDesignActivity extends Activity {
             }
         });
 
+        // PickNumbers setup
         repeatPicker.setMinValue(1);
         repeatPicker.setMaxValue(200);
         repeatPicker.setValue(5);
@@ -76,6 +80,23 @@ public class AttackDesignActivity extends Activity {
         delayPicker.setMinValue(0);
         delayPicker.setMaxValue(120);
         delayPicker.setWrapSelectorWheel(false);
+
+        // Fire button setup
+        fireButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!phoneNumEditText.getText().toString().equals("")) {
+                    //TODO when multiple contact choosing was created this has to change accordingly
+                    ArrayList<String> tmpArray = new ArrayList<String>();
+                    tmpArray.add(phoneNumEditText.getText().toString());
+                    MissedCallAttack tmpMCA = new MissedCallAttack(tmpArray,repeatPicker.getValue(),
+                            holdPicker.getValue(),delayPicker.getValue());
+                    Intent intent = new Intent(AttackDesignActivity.this,AttackExecutionActivity.class);
+                    tmpMCA.loadIntent(intent);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void log(String message){
