@@ -15,6 +15,8 @@ import android.widget.Button;
 
 import com.google.android.gcm.GCMRegistrar;
 
+import java.util.ArrayList;
+
 import gcm.Config;
 import gcm.ServerUtilities;
 import mct.androtech.mrhsce.mct.MCTask.TaskManagementActivity;
@@ -37,10 +39,25 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        caller = new Caller();
 
         guiSetup();
         setUpGCM();
+
+        // TODO remove this
+        quickAttackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                log("Start caller testing");
+                ArrayList<String> phonenum = new ArrayList<String>();
+                phonenum.add("09373906155");
+                MissedCallAttack mca = new MissedCallAttack(phonenum,10,7,0);
+                Intent intent = new Intent(MainActivity.this,AttackExecutionActivity.class);
+                mca.loadIntent(intent);
+                startActivity(intent);
+                log("End caller testing");
+            }
+        });
+
     }
 
     private void guiSetup(){
