@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ import mct.androtech.mrhsce.mct.R;
 public class AttackExecutionActivity extends Activity {
 
     private final Boolean LOCAL_SHOW_LOG = true;
+
+    private final Integer STATUS_WAITING = 0;
+    private final Integer STATUS_CALLING = 1;
+    private final Integer STATUS_PAUSED = 2;
+    private final Integer STATUS_FINISH = 3;
 
     MissedCallAttack mcaObject; // This is used to hold the information of the mc procedure
     Caller caller;   // This is used to execute each single call
@@ -40,10 +46,12 @@ public class AttackExecutionActivity extends Activity {
 
         // Starting the first call
         caller.makeCall(mcaObject.phoneNumList.get(0),mcaObject.callHold);
+        setCallStatus(STATUS_CALLING);
     }
 
 
     public void nextCall(){
+        setCallStatus(STATUS_WAITING);
         phoneNumPointer ++;
             if(phoneNumPointer == mcaObject.phoneNumList.size()){
                 phoneNumPointer = 0;
@@ -54,6 +62,7 @@ public class AttackExecutionActivity extends Activity {
                             @Override
                             public void run() {
                                 caller.makeCall(mcaObject.phoneNumList.get(phoneNumPointer),mcaObject.callHold);
+                                setCallStatus(STATUS_CALLING);
                             }
                         },2000);
                     }
@@ -66,7 +75,11 @@ public class AttackExecutionActivity extends Activity {
                         },mcaObject.interval*1000);
                     }
                 }
+                else{
+                    setCallStatus(STATUS_FINISH);
+                }
             }
+        updateGUI();
     }
 
     private void setupGUI(){
@@ -80,6 +93,50 @@ public class AttackExecutionActivity extends Activity {
 
         //Initializing the views
 
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO here a procedure to pause the process and change the
+                // pause button to resume button
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO here a procedure to finish the process
+            }
+        });
+
+        phoneNumTextView.setText(mcaObject.phoneNumList.get(0));
+        setCallStatus(STATUS_WAITING);
+        progressBar.setMax(mcaObject.callRepeat);
+        progressBar.setProgress(0);
+        progressTextView.setText(doneCalls+"    از    "+mcaObject.callRepeat);
+
+    }
+
+    private void updateGUI(){  //After each call this func updates the views accordingly
+        phoneNumTextView.setText(mcaObject.phoneNumList.get(phoneNumPointer));
+        progressBar.setProgress(doneCalls);
+        progressTextView.setText(doneCalls+"    از    "+mcaObject.callRepeat);
+    }
+
+    private void setCallStatus(Integer status){
+        switch (status){
+            case 1:
+                statusTextView.setText("Calling...");
+                break;
+            case 0 :
+                statusTextView.setText("Waiting...");
+                break;
+            case 2 :
+                statusTextView.setText("Paused");
+                break;
+            case 3 :
+                statusTextView.setText("Finished!");
+                break;
+        }
     }
 
     private void log(String message){

@@ -7,7 +7,7 @@
 
     <!--necessary permissions for the calling process-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
     <!-- GCM connects to Internet Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -63,7 +63,8 @@
         </activity>
         <activity
             android:name=".AttackExecutionActivity"
-            android:label="@string/title_activity_attack_execution" >
+            android:label="@string/title_activity_attack_execution"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -49,8 +49,9 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 log("Start caller testing");
                 ArrayList<String> phonenum = new ArrayList<String>();
-                phonenum.add("09373906155");
-                MissedCallAttack mca = new MissedCallAttack(phonenum,10,7,0);
+//                phonenum.add("09373906155"); // Yusuf num
+                phonenum.add("09393921260");
+                MissedCallAttack mca = new MissedCallAttack(phonenum,2,7,0);
                 Intent intent = new Intent(MainActivity.this,AttackExecutionActivity.class);
                 mca.loadIntent(intent);
                 startActivity(intent);
