@@ -57,23 +57,13 @@ public class AttackExecutionActivity extends Activity {
                 phoneNumPointer = 0;
                 doneCalls ++;
                 if(doneCalls < mcaObject.callRepeat){
-                    if(mcaObject.interval == 0){
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                caller.makeCall(mcaObject.phoneNumList.get(phoneNumPointer),mcaObject.callHold);
-                                setCallStatus(STATUS_CALLING);
-                            }
-                        },2000);
-                    }
-                    else{
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                caller.makeCall(mcaObject.phoneNumList.get(phoneNumPointer),mcaObject.callHold);
-                            }
-                        },mcaObject.interval*1000);
-                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            caller.makeCall(mcaObject.phoneNumList.get(phoneNumPointer),mcaObject.callHold);
+                            setCallStatus(STATUS_CALLING);
+                        }
+                    },mcaObject.interval*1000);
                 }
                 else{
                     setCallStatus(STATUS_FINISH);

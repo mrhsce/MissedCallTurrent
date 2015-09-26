@@ -3,6 +3,7 @@ package mct.androtech.mrhsce.mct;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class AttackDesignActivity extends Activity {
         fireButton = (Button)findViewById(R.id.fireButton);
 
         phoneNumEditText = (EditText)findViewById(R.id.phoneNumEditText);
+        phoneNumEditText.setInputType(InputType.TYPE_CLASS_PHONE);
         phoneNumList = (ListView)findViewById(R.id.phoneNumList);
 
         repeatPicker = (NumberPicker)findViewById(R.id.repeatNumberPicker);
@@ -77,7 +80,7 @@ public class AttackDesignActivity extends Activity {
         holdPicker.setValue(10);
         holdPicker.setWrapSelectorWheel(false);
 
-        delayPicker.setMinValue(0);
+        delayPicker.setMinValue(2);
         delayPicker.setMaxValue(120);
         delayPicker.setWrapSelectorWheel(false);
 
@@ -85,18 +88,35 @@ public class AttackDesignActivity extends Activity {
         fireButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!phoneNumEditText.getText().toString().equals("")) {
-                    //TODO when multiple contact choosing was created this has to change accordingly
-                    ArrayList<String> tmpArray = new ArrayList<String>();
-                    tmpArray.add(phoneNumEditText.getText().toString());
-                    MissedCallAttack tmpMCA = new MissedCallAttack(tmpArray,repeatPicker.getValue(),
-                            holdPicker.getValue(),delayPicker.getValue());
-                    Intent intent = new Intent(AttackDesignActivity.this,AttackExecutionActivity.class);
-                    tmpMCA.loadIntent(intent);
-                    startActivity(intent);
-                }
+                fireButtonPressed();
             }
         });
+    }
+
+    private void fireButtonPressed(){
+        //TODO when multiple contact choosing was created this has to change accordingly
+        log("Fire button pressed");
+        if(chkPhoneNum(phoneNumEditText.getText().toString())) {
+            ArrayList<String> tmpArray = new ArrayList<String>();
+            tmpArray.add(phoneNumEditText.getText().toString());
+            MissedCallAttack tmpMCA = new MissedCallAttack(tmpArray, repeatPicker.getValue(),
+                    holdPicker.getValue(), delayPicker.getValue());
+            Intent intent = new Intent(AttackDesignActivity.this, AttackExecutionActivity.class);
+            tmpMCA.loadIntent(intent);
+            startActivity(intent);
+        }
+    }
+
+    private Boolean chkPhoneNum(String phoneNum){
+        if(phoneNum.matches("(0|\\+98)(9)[0-9]{9}")){
+            log("The phonuNum structure is correct");
+            return true;
+        }
+        else{
+            log("The phonuNum structure is incorrect");
+            Toast.makeText(this,"ساختار شماره وارد شده صحیح نمی باشد",Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private void log(String message){
